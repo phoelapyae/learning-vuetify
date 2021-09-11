@@ -23,6 +23,25 @@
           </v-col>
         </v-row>
 
+        <v-row id="below-the-fold" v-intersect="showMoreContent">
+          <v-col cols="12" md="8">
+            <EmployeesTable :employees="employees" @select-employee="setEmployee"/>
+          </v-col>
+          <v-col cols="12" md="4">
+            <EventTimeline :timeline="timeline"/>
+          </v-col>
+        </v-row>
+
+        <v-row v-if="loadNewContent" id="more-content">
+          <v-col>
+            <v-skeleton-loader
+              ref="skeleton"
+              class="mx-auto"
+              type="table"
+            ></v-skeleton-loader>
+          </v-col>
+        </v-row>
+
         <!-- Snackbar  -->
         <v-snackbar
             v-model="snackbar"
@@ -71,7 +90,8 @@ export default {
       employees: employeesData,
       sales: salesData,
       statistics: statisticsData,
-      timeline: timelineData
+      timeline: timelineData,
+      loadNewContent: false
     }
   },
   methods: {
@@ -79,6 +99,10 @@ export default {
       this.snackbar = true
       this.selectedEmployee.name = event.name
       this.selectedEmployee.title = event.title
+    },
+    showMoreContent(entries){
+      console.log(entries[0].isIntersecting);
+      this.loadNewContent = entries[0].isIntersecting;
     }
   }
 }
