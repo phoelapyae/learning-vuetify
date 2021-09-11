@@ -26,7 +26,7 @@
         <!-- Snackbar  -->
         <v-snackbar
             v-model="snackbar"
-            :left="$vuetify.breakpoint.show-lg-and-up"
+            :left="$vuetify.breakpoint.lgAndUp"
         >
             Your selected name is {{ selectedEmployee.name }} and selected title is {{ selectedEmployee.title }}.
             <v-btn
